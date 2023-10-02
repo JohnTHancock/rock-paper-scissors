@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    //Each game will consist of 5 rounds. Each round will begin with the computer selecting via random number generation.
+    //The rounds will exist in a for loop inside a larger function called game. The for loop will be a simple increment counter.
+    //The player is prompted for an input. The input string is converted to lower case and then compared against the computer
+    //selection. 
+    //Once the result of the round is determined, an increment will be added to one of two variables that store the score
+    //of the player and computer, respectively. Once 5 rounds have passed, the scores will be compared and the winner is 
+    //announced.
+
+    let computerChoice;
+    function getComputerChoice() {
+        let randomNumber = Math.random();
+        if (randomNumber <= .33) {
+            computerChoice = "rock";
+        } else if (randomNumber > .33 && randomNumber <= .66) {
+            computerChoice = "paper";
+        } else {
+            computerChoice = "scissors";
+        }
+        console.log(computerChoice);
+    }
+</script>
+</html>
