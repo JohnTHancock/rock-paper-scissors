@@ -17,13 +17,35 @@
     //Once the result of the round is determined, an increment will be added to one of two variables that store the score
     //of the player and computer, respectively. Once 5 rounds have passed, the scores will be compared and the winner is 
     //announced.
-function game() {
 
+    let playerScore = 0
+    let computerScore = 0
+function game() {
     let outputString;
     let computerChoice;
     let playerChoice;
+    for (let i = 1; i <= 5; i++) {
+        playRound(playerChoice, computerChoice);
+    alert(outputString);
+    }
+
+    console.log(declareWinner());
+
+    function declareWinner() {
+        if (playerScore === computerScore) {
+            alert (playerScore + " to " + computerScore + "\nTie game!");
+            return (playerScore + " to " + computerScore + "\nTie game!");
+        } else if (playerScore > computerScore) {
+            alert (playerScore + " to " + computerScore + "\nYou won!");
+            return (playerScore + " to " + computerScore + "\nYou won!");
+        } else {
+            alert (playerScore + " to " + computerScore + "\nHaha Loser!");
+            return (playerScore + " to " + computerScore + "\nHaha Loser!");
+        }
+    }
 
     function playRound (playerChoice, computerChoice) {
+        let counter = 1;
         function getComputerChoice() {
             let randomNumber = Math.random();
             if (randomNumber <= .33) {
@@ -50,21 +72,26 @@ function game() {
             outputString = "It's a tie! You both chose " + playerChoice + "."; //tie condition
         } else if (playerChoice === "Rock" && computerChoice === "Paper") { //these lines contain loss conditions
             outputString = "You lost. " + computerChoice + " beats " + playerChoice + ".";
+            ++computerScore;
         } else if (playerChoice === "Paper" && computerChoice === "Scissors") {
             outputString = "You lost. " + computerChoice + " beats " + playerChoice + ".";
+            ++computerScore;
         } else if (playerChoice === "Scissors" && computerChoice === "Rock") {
             outputString = "You lost. " + computerChoice + " beats " + playerChoice + ".";
+            ++computerScore;
         } else if (playerChoice === "Rock" && computerChoice === "Scissors") { //these lines contain win conditions
             outputString = "You won! " + playerChoice + " beats " + computerChoice + ".";
+            ++playerScore;
         } else if (playerChoice === "Paper" && computerChoice === "Rock") {
             outputString = "You won! " + playerChoice + " beats " + computerChoice + ".";
+            ++playerScore;
         } else if (playerChoice === "Scissors" && computerChoice === "Paper") {
             outputString = "You won! " + playerChoice + " beats " + computerChoice + ".";
+            ++playerScore;
         }
     }
 
-    playRound(playerChoice, computerChoice);
-    console.log(outputString);
 }
+
 </script>
 </html>
