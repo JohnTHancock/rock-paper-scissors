@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <div class="container">
+        <h1 id="header">Choose.</h1>
+        <div class="buttonContainer">
+            <button class="button" id="Rock">Rock</button>
+            <button class="button" id="Paper">Paper</button>
+            <button class="button" id="Scissors">Scissors</button>
+            <!-- <button id="temp">Display</button> -->
+        </div>
+        <div id="results"></div>
+        <div id="score"></div>
+    </div>
 </body>
 
 <script>
@@ -20,32 +31,74 @@
 
     let playerScore = 0
     let computerScore = 0
-function game() {
+// function game() {
     let outputString;
     let computerChoice;
-    let playerChoice;
-    for (let i = 1; i <= 5; i++) {
-        playRound(playerChoice, computerChoice);
-    alert(outputString);
-    }
+    let pChoice;
+    // for (let i = 1; i <= 5; i++) {
+    //     playRound(playerChoice, computerChoice);
+    // alert(outputString);
+    // }
 
-    console.log(declareWinner());
+    // console.log(declareWinner());
+    const container = document.querySelector('.container');
+    let buttonContainer = document.querySelector('.buttonContainer');
+    let temp = document.querySelector('#temp');
+    let results = document.querySelector('#results');
+    let score = document.querySelector('#score');
+    const restart = document.createElement("button");
+    restart.textContent = "Restart";
+    restart.addEventListener('click', () => {
+        playerScore = 0;
+        computerScore = 0;
+        results.textContent = '';
+        score.textContent = '';
+        container.removeChild(restart);
+
+    })
+
+    // temp.addEventListener('click', () => {
+    //     console.log(playerChoice);
+    // })
+
+    buttonContainer.addEventListener('click', (event) => {
+        let target = event.target;
+
+        pChoice = target.id;
+
+        playRound();
+
+        results.textContent = outputString;
+        score.textContent = `${playerScore} to ${computerScore}.`;
+        if (playerScore >= 5 || computerScore >= 5) {
+            declareWinner();
+        }
+    })
+
 
     function declareWinner() {
         if (playerScore === computerScore) {
-            alert (playerScore + " to " + computerScore + "\nTie game!");
-            return (playerScore + " to " + computerScore + "\nTie game!");
+            // alert (playerScore + " to " + computerScore + "\nTie game!");
+            // return (playerScore + " to " + computerScore + "\nTie game!");
+            results.textContent = 'Game over! It\'s a tie.';
         } else if (playerScore > computerScore) {
-            alert (playerScore + " to " + computerScore + "\nYou won!");
-            return (playerScore + " to " + computerScore + "\nYou won!");
+            // alert (playerScore + " to " + computerScore + "\nYou won!");
+            // return (playerScore + " to " + computerScore + "\nYou won!");
+            results.textContent = 'Game over! You won!';
         } else {
-            alert (playerScore + " to " + computerScore + "\nHaha Loser!");
-            return (playerScore + " to " + computerScore + "\nHaha Loser!");
+            // alert (playerScore + " to " + computerScore + "\nHaha Loser!");
+            // return (playerScore + " to " + computerScore + "\nHaha Loser!");
+            results.textContent = 'Game over! You lost.'
         }
+        container.appendChild(restart);
     }
 
     function playRound (playerChoice, computerChoice) {
-        let counter = 1;
+        if (playerScore >= 5 || computerScore >= 5){
+            return;
+        }
+        playerChoice = pChoice;
+
         function getComputerChoice() {
             let randomNumber = Math.random();
             if (randomNumber <= .33) {
@@ -57,17 +110,17 @@ function game() {
             }
         }
 
-        function getPlayerChoice () {
-            playerChoice = prompt("Rock, Paper, or Scissors?");
-            let choiceString = playerChoice.toLowerCase();
-            let remainingString = choiceString.slice(1);
-            let firstLetter = choiceString.charAt(0);
-            firstLetter = firstLetter.toUpperCase();
-            playerChoice = firstLetter + remainingString;
-        }
+        // function getPlayerChoice () {
+        //     playerChoice = prompt("Rock, Paper, or Scissors?");
+        //     let choiceString = playerChoice.toLowerCase();
+        //     let remainingString = choiceString.slice(1);
+        //     let firstLetter = choiceString.charAt(0);
+        //     firstLetter = firstLetter.toUpperCase();
+        //     playerChoice = firstLetter + remainingString;
+        // }
 
         getComputerChoice();
-        getPlayerChoice();
+        // getPlayerChoice();
         if (playerChoice === computerChoice) {
             outputString = "It's a tie! You both chose " + playerChoice + "."; //tie condition
         } else if (playerChoice === "Rock" && computerChoice === "Paper") { //these lines contain loss conditions
@@ -89,9 +142,11 @@ function game() {
             outputString = "You won! " + playerChoice + " beats " + computerChoice + ".";
             ++playerScore;
         }
+        console.log(outputString);
+        console.log(playerScore + ' to ' + computerScore);
     }
 
-}
+// }
 
 </script>
 </html>
